@@ -7,6 +7,8 @@ describe Sinatra::YSD::PaymentRESTApi do
   include Rack::Test::Methods
 
   def app  
+    TestingSinatraApp.register Sinatra::YSD::PaymentRESTApi
+
     TestingSinatraApp
   end
   

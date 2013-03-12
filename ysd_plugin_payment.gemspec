@@ -24,5 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rack-test"
   s.add_development_dependency "sinatra"
   s.add_development_dependency "sinatra-r18n"
+  s.add_development_dependency "dm-sqlite-adapter" # Model testing using sqlite  
 
 end
