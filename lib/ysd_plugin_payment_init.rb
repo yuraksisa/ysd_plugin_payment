@@ -5,10 +5,11 @@ Plugins::SinatraAppPlugin.register :forum do
 
    name=        'forum'
    author=      'yurak sisa'
-   description= 'Integrate the forum application'
+   description= 'Integrate the payment application'
    version=     '0.1'
    sinatra_extension Sinatra::YSD::Payment
    sinatra_extension Sinatra::YSD::PaymentRESTApi
+   sinatra_extension Sinatra::YSD::PaymentGateway
    hooker            Huasi::PaymentExtension
   
 end

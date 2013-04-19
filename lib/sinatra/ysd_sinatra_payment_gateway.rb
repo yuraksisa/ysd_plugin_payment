@@ -2,12 +2,15 @@ require 'ysd_md_payment' unless defined?Payments::Charge
 
 module Sinatra
   module YSD
-  	module Charge
+    #
+    # It manages the payment gateway communication
+    #
+  	module PaymentGateway
 
       def self.registered(app)
 
         #
-        # Build a gateway payment charge form
+        # Connect to the payment gateway to perform the charge
         #
         # It uses the charge_id session variable to get the charge_id
         #
@@ -28,7 +31,23 @@ module Sinatra
           form = charge.payment_method.charge_form(charge)
 
           status 200
+          content_type :html
           body form
+
+        end
+
+        #
+        # It responds to the payment gateway request
+        #
+        app.get '/charge-detail' do
+
+        end
+
+        app.get '/charge-ok' do
+
+        end
+
+        app.get '/charge-nok' do
 
         end
 
