@@ -41,22 +41,50 @@ module Sinatra
           charge_id = params[:pszPurchorderNum]  
           result = params[:result]
           
-          #
-          # ATTENTION result 0 (ok) 2 (denied)
-          #
-          if result == "0" 
-
+          if result == "0" #DONE
           	if charge = Payments::Charge.get(charge_id)
-              method_name = "#{charge_source.class.name}_gateway_return_ok".to_sym
               if charge_source = charge.charge_source
-                redirect_url = settings.send(method_name) if settings.respond_to?(method_name)
+              	method_name = "#{charge_source.class.name.split('::').last.downcase}_gateway_return_ok".to_sym
+              	puts "METHOD_NAME = #{method_name}"
+              	if settings.respond_to?(method_name)
+                  redirect_url = settings.send(method_name) 
+                  status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
+                     "REQUEST_METHOD" => 'GET') 
+                else
+                  status 200
+                  body "No #{method_name}" #TODO CHANGE
+                end
+              else
+              	status 200
+              	body "Charge without source" #TODO CHANGE
               end
-
-              status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
-                 "REQUEST_METHOD" => 'GET') 
-
+            else
+              status 404
+            end
           else
-
+          	if result == "2" #DENIED
+              if charge = Payments::Charge.get(charge_id)
+                if charge_source = charge.charge_source
+                  method_name =  "#{charge_source.class.name.split('::').last.downcase}_gateway_return_nok".to_sym
+                  puts "METHOD_NAME = #{method_name}"
+                  if settings.respond_to?(method_name)
+                    redirect_url = settings.send(method_name)
+                    status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
+                      "REQUEST_METHOD" => 'GET')
+                  else
+                    status 200
+                    body "No #{method_name}" #TODO CHANGE
+                  end
+                else
+                  status 200
+                  body "Charge without source" #TODO CHANGE
+                end
+              else
+                status 404
+              end
+            else
+              status 404
+            end
           end
 
         end
