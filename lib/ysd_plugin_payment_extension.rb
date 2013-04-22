@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'ysd-plugins_viewlistener' unless defined?Plugins::ViewListener
 require 'ysd_md_configuration' unless defined?SystemConfiguration::Variable
 #
@@ -13,13 +14,13 @@ module Huasi
     
       SystemConfiguration::Variable.first_or_create(
         {:name => 'payments.available_methods'},
-        {:value => '',
+        {:value => 'bank_transfer',
          :description => 'Available payment methods',
          :module => :payments})  
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.pi4b.merchant_id',
-         :value => '',
+         :value => '12345677890',
          :description => 'Pasarela Pasat Internet 4B: Código de comercio',
          :module => :payments})
 
@@ -35,32 +36,32 @@ module Huasi
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.merchant_id',
-         :value => '',
+         :value => '123456789',
          :description => 'Pasarela Cecabank: Merchant Id'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.acquirer_id',
-         :value => '',
+         :value => '1234567890',
          :description => 'Pasarela Cecabank: Acquirer Id'})
 
       SystemConfiguration::SecureVariable.first_or_create(
-        {:name => 'payments.cecabank.acquirer_id',
-         :value => '',
+        {:name => 'payments.cecabank.terminal_id',
+         :value => '12345678',
          :description => 'Pasarela Cecabank: Terminal Id'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.clave_encriptacion',
-         :value => '',
+         :value => '12345678',
          :description => 'Pasarela Cecabank: Clave encriptación'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url_ok',
-         :value => '',
+         :value => 'http://www.mydomain.com/charge-ok/cecabank',
          :description => 'Pasarela Cecabank: URL a la que dirige la pasarela si el cobro se ha realizado'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url_nok',
-         :value => '',
+         :value => 'http://www.mydomain.com/charge-nok/cecabank',
          :description => 'Pasarela Cecabank: URL a la que dirige la pasarela si se ha producido un error'})
 
     end

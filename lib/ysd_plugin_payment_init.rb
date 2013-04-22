@@ -10,6 +10,7 @@ Plugins::SinatraAppPlugin.register :forum do
    sinatra_extension Sinatra::YSD::Payment
    sinatra_extension Sinatra::YSD::PaymentRESTApi
    sinatra_extension Sinatra::YSD::PaymentGateway
+   sinatra_extension Sinatra::YSD::PI4BPaymentGateway
    hooker            Huasi::PaymentExtension
   
 end

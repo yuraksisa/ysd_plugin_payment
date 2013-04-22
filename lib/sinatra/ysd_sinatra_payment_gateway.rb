@@ -36,21 +36,6 @@ module Sinatra
 
         end
 
-        #
-        # It responds to the payment gateway request
-        #
-        app.get '/charge-detail' do
-
-        end
-
-        app.get '/charge-ok' do
-
-        end
-
-        app.get '/charge-nok' do
-
-        end
-
       end
 
   	end #Charge
