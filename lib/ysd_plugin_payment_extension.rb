@@ -66,6 +66,52 @@ module Huasi
 
     end
 
+    # --------- Menus --------------------
+    
+    #
+    # It defines the admin menu menu items
+    #
+    # @return [Array]
+    #  Menu definition
+    #
+    def menu(context={})
+      
+      app = context[:app]
+
+      menu_items = [{:path => '/apps/payments',              
+                     :options => {:title => app.t.system_admin_menu.apps.payments_menu.title,
+                                  :description => 'Payments',
+                                  :module => :payments,
+                                  :weight => 1}
+                    },
+                    {:path => '/apps/payments/charges',              
+                     :options => {:title => app.t.system_admin_menu.apps.payments_menu.charges,
+                                  :link_route => "/admin/charges",
+                                  :description => 'Query charges',
+                                  :module => :payments,
+                                  :weight => 1}
+                    }
+                    ]                      
+    
+    end  
+
+    # ========= Routes ===================
+    
+    # routes
+    #
+    # Define the module routes, that is the url that allow to access the funcionality defined in the module
+    #
+    #
+    def routes(context={})
+    
+      routes = [{:path => '/apps/payments/charges',
+                 :regular_expression => /^\/admin\/charges/, 
+                 :title => 'Charges', 
+                 :description => 'Charges management',
+                 :fit => 1,
+                 :module => :payments }]
+      
+    end
   
   end #MailExtension
 end #Social

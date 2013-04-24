@@ -1,0 +1,99 @@
+<%= include('entity-management') %>
+
+<!-- Renders the element description -->
+
+<script type="text/tmpl" id="elements_title">
+  <h2 class="entity-title"><%=t.charge_management.title%></h2>
+</script>
+
+<script type="text/tmpl" id="elements_description">
+  <%= t.charge_management.description %>
+</script>
+
+<!-- Renders the elements container -->
+<script type="text/tmpl" id="elements_container_template">
+  <table id="elements_table" class="table">
+     <thead class="table-header">
+       <tr>
+         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.date %></th>
+         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.amount %></th>
+         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.status %></th>
+         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.payment_method %></th>
+       </tr>
+     </thead>
+     <tbody id="elements_tbody" class="table-tbody">             
+     </tbody>
+  </table>
+</script>
+
+<!-- Renders one element in the elements list view -->
+        
+<script type="text/tmpl" id="elements_list_template">
+    <tr class="table-row element-navigation-detail" rel="<%%= index %>" id="element_row_<%%=index%>">
+      <td class="table-cell"><%%= self.formatDate(entity.date) %></td>
+      <td class="table-cell"><%%= entity.amount?new Number(entity.amount).toFixed(2):entity.amount %></td>
+      <td class="table-cell"><%%= entity.status %></td>
+      <td class="table-cell"><%%= entity.payment_method_id %></td>
+    </tr>
+</script>
+
+<!-- Renders one element in the element view (full detailed) -->
+
+<script type="text/tmpl" id="element_template">
+</script>
+
+<!-- Renders the form to edit an element -->
+
+<script type="text/tmpl" id="element_template_form">
+     <div class="element-detail">
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.date %></span>
+            <span class="entity-fieldvalue"><%%= self.formatDate(entity.date) %></span>
+          </div>
+        </div>
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.amount %></span>
+            <span class="entity-fieldvalue"><%%= entity.amount?new Number(entity.amount).toFixed(2):entity.amount %></span>
+          </div>
+        </div>
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.status %></span>
+            <span class="entity-fieldvalue"><%%= entity.status %></span>
+          </div>
+        </div>
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.payment_method %></span>
+            <span class="entity-fieldvalue"><%%= entity.payment_method_id %></span>
+          </div>
+        </div>
+     </form>
+</script>
+
+
+<script type="text/javascript">
+ 
+ require(['jquery', 'YSDEntityManagement'], function($, EntityManagement) {
+
+ 
+  function ChargeHook() {
+ 	   
+    this.entityKey = function(entity) {
+      return entity.id;
+    }    
+  	
+  };
+  
+  var urls = { 
+  	           query_url  : '/charges'
+  	         };
+  
+  var chargeHook = new ChargeHook();
+  var chargeManager = new EntityManagement(urls, 'charges', <%=charges_page_size%>, chargeHook, {prefix: '/admin'});
+ 
+ });
+  
+</script>

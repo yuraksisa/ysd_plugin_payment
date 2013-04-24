@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name    = "ysd_plugin_payment"
-  s.version = "0.1.11"
+  s.version = "0.1.13"
   s.authors = ["Yurak Sisa Dream"]
   s.date    = "2012-05-16"
   s.email   = ["yurak.sisa.dream@gmail.com"]
@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sinatra"
   s.add_development_dependency "sinatra-r18n"
   s.add_development_dependency "dm-sqlite-adapter" # Model testing using sqlite  
-
+  s.add_development_dependency "ysd_core_themes"
+  
 end

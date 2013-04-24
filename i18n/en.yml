@@ -1,3 +1,18 @@
-forum_admin_menu:
-  forum_menu: Foros
-  forum_management: Foro
+system_admin_menu:
+  apps:
+    payments_menu:
+      title: Payments and charges
+      charges: Charges
+charge_management:
+  title: Charge management
+  description: <p>Query charges to check their state.</p>
+  table:
+    date: Date
+    amount: Amount
+    status: Status
+    payment_method: Payment method
+  form:
+    date: Date
+    amount: Amount
+    status: Status
+    payment_method: Payment method  

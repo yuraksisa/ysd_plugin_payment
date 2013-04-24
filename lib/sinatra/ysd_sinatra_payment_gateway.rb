@@ -27,8 +27,14 @@ module Sinatra
           unless charge.payment_method.respond_to?(:charge_form)
           	halt 404
           end
-          
+
           form = charge.payment_method.charge_form(charge)
+
+          # Notifies to the charge source that the charge is in process
+          if charge_source = charge.charge_source and 
+             charge_source.respond_to(:charge_in_process)
+            charge_source.charge_in_process
+          end
 
           status 200
           content_type :html

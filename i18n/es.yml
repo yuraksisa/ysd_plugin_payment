@@ -1,3 +1,18 @@
-forum_admin_menu:
-  forum_menu: Foros
-  forum_management: Foro
+system_admin_menu:
+  apps:
+    payments_menu:
+      title: Gestión de pagos y cobros
+      charges: Cobros
+charge_management:
+  title: Gestión de cobros
+  description: <p>Consultar los cobros y su estado.</p>
+  table:
+    date: Fecha
+    amount: Importe
+    status: Estado
+    payment_method: Método de pago
+  form:
+    date: Fecha
+    amount: Importe
+    status: Estado
+    payment_method: Método de pago 

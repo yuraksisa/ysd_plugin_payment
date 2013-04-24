@@ -45,7 +45,6 @@ module Sinatra
           	if charge = Payments::Charge.get(charge_id)
               if charge_source = charge.charge_source
               	method_name = "#{charge_source.class.name.split('::').last.downcase}_gateway_return_ok".to_sym
-              	puts "METHOD_NAME = #{method_name}"
               	if settings.respond_to?(method_name)
                   redirect_url = settings.send(method_name) 
                   status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
@@ -66,7 +65,6 @@ module Sinatra
               if charge = Payments::Charge.get(charge_id)
                 if charge_source = charge.charge_source
                   method_name =  "#{charge_source.class.name.split('::').last.downcase}_gateway_return_nok".to_sym
-                  puts "METHOD_NAME = #{method_name}"
                   if settings.respond_to?(method_name)
                     redirect_url = settings.send(method_name)
                     status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
@@ -98,18 +96,15 @@ module Sinatra
           charge_id = params[:pszPurchorderNum]
           result = params[:result]
           
-          puts "PROCESSING charge : #{charge_id} RESULT : #{result}"
-
           if charge = Payments::Charge.get(charge_id)
           	case result
           	  when "0"
-                charge.status = :done
+                charge.update(:status => :done)
               when "2"
-              	charge.status = :denied
+              	charge.update(:status => :denied)
               else
               	puts "Result is not 0 or 2"
             end
-            charge.save
             status 200
           else
             status 404

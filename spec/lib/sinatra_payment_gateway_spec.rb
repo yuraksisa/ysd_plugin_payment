@@ -1,20 +1,20 @@
 require 'spec_helper'
 require 'rack/test'
-require 'sinatra/ysd_sinatra_charge'
+require 'sinatra/ysd_sinatra_payment_gateway'
 require 'ysd_md_payment'
 
-describe Sinatra::YSD::Charge do
+describe Sinatra::YSD::PaymentGateway do
   include Rack::Test::Methods
 
   def app
-    TestingSinatraApp.register Sinatra::YSD::Charge
+    TestingSinatraApp.register Sinatra::YSD::PaymentGateway
     TestingSinatraApp
   end
 
   context "when a gateway payment charge in session" do
     
     before do
-      charge = Payments::Charge.create({:payment_method_id => :cecabank, 
+      charge = Payments::Charge.create({:payment_method_id => :pi4b, 
       	  :amount => 100,
       	  :currency => 'EUR'})	
       Payments::Charge.should_receive(:get).with(1).and_return(charge)
