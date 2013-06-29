@@ -15,10 +15,12 @@
   <table id="elements_table" class="table">
      <thead class="table-header">
        <tr>
-         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.date %></th>
-         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.amount %></th>
-         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.status %></th>
-         <th class="table-header-title" scope="col" style="width:25%"><%= t.charge_management.table.payment_method %></th>
+         <th class="table-header-title centered_text" scope="col" style="width:15%"><%= t.charge_management.table.id %></th>
+         <th class="table-header-title" scope="col" style="width:15%"><%= t.charge_management.table.date %></th>
+         <th class="table-header-title right_text right-margin" scope="col" style="width:10%"><%= t.charge_management.table.amount %></th>
+         <th class="table-header-title centered_text" scope="col" style="width:10%"><%= t.charge_management.table.status %></th>         
+         <th class="table-header-title" scope="col" style="width:35%"><%= t.charge_management.table.source %></th>
+         <th class="table-header-title" scope="col" style="width:15%"><%= t.charge_management.table.payment_method %></th>
        </tr>
      </thead>
      <tbody id="elements_tbody" class="table-tbody">             
@@ -29,11 +31,29 @@
 <!-- Renders one element in the elements list view -->
         
 <script type="text/tmpl" id="elements_list_template">
-    <tr class="table-row element-navigation-detail" rel="<%%= index %>" id="element_row_<%%=index%>">
-      <td class="table-cell"><%%= self.formatDate(entity.date) %></td>
-      <td class="table-cell"><%%= entity.amount?new Number(entity.amount).toFixed(2):entity.amount %></td>
-      <td class="table-cell"><%%= entity.status %></td>
-      <td class="table-cell"><%%= entity.payment_method_id %></td>
+    <tr class="table-row" rel="<%%= index %>" id="element_row_<%%=index%>">
+      <td class="table-cell element-row-selector centered_text" 
+          rel="<%%= index %>"><%%= entity.id %></td> 
+      <td class="table-cell element-row-selector" rel="<%%= index %>">
+        <%%= self.formatDate(entity.date) %>
+      </td>
+      <td class="table-cell element-row-selector right_text more_contrast_text" 
+          rel="<%%= index %>">
+        <%%= entity.amount?new Number(entity.amount).toFixed(2):entity.amount %>
+      </td>
+      <td class="table-cell element-row-selector centered_text" 
+          rel="<%%= index %>">
+        <span class="element-status <%%=self.model.entityHooks[0].statusClass(entity)%> smaller_text">
+          <%%= self.model.entityHooks[0].statusDescription[entity.status] %>
+        </span>
+      </td>
+      <td class="table-cell selectable-entity">
+        <a href="<%%=entity.charge_source.charge_source_url%>">
+        <%%= entity.charge_source.charge_source_description %></a>
+      </td>
+      <td class="table-cell element-row-selector" rel="<%%= index %>">
+        <%%= entity.payment_method_id %>
+      </td>
     </tr>
 </script>
 
@@ -46,6 +66,12 @@
 
 <script type="text/tmpl" id="element_template_form">
      <div class="element-detail">
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.id %></span>
+            <span class="entity-fieldvalue"><%%= entity.id %></span>
+          </div>
+        </div>
         <div class="element_template">
           <div class="entity-field">
             <span class="entity-fieldlabel"><%= t.charge_management.form.date %></span>
@@ -61,7 +87,19 @@
         <div class="element_template">
           <div class="entity-field">
             <span class="entity-fieldlabel"><%= t.charge_management.form.status %></span>
-            <span class="entity-fieldvalue"><%%= entity.status %></span>
+            <span class="entity-fieldvalue">
+              <span class="<%%=self.model.entityHooks[0].statusClass(entity)%> element-status">
+                <%%= self.model.entityHooks[0].statusDescription[entity.status] %>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="element_template">
+          <div class="entity-field">
+            <span class="entity-fieldlabel"><%= t.charge_management.form.source %></span>
+            <span class="entity-fieldvalue"><a href="<%%=entity.charge_source.charge_source_url%>">
+              <%%= entity.charge_source.charge_source_description %></a>
+            </span>
           </div>
         </div>
         <div class="element_template">
@@ -80,11 +118,37 @@
 
  
   function ChargeHook() {
- 	   
+ 	  
+    this.statusDescription = {
+       'pending': '<%= t.charge_status.pending %>',
+       'processing': '<%= t.charge_status.processing %>',
+       'done': '<%= t.charge_status.done %>',
+       'denied': '<%= t.charge_status.denied %>'
+    };
+
     this.entityKey = function(entity) {
       return entity.id;
     }    
   	
+    this.statusClass = function(entity) {
+      var className = null;
+      switch (entity.status) {
+        case 'pending' :
+          className = 'pending-status';
+          break;
+        case 'processing':
+          className = 'doing-status';
+          break; 
+        case 'done':
+          className = 'done-status';
+          break;
+        case 'denied':
+          className = 'error-status';
+          break;
+      }
+      return className;
+    }
+
   };
   
   var urls = { 

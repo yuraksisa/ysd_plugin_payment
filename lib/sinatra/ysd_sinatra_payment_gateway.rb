@@ -28,11 +28,11 @@ module Sinatra
           	halt 404
           end
 
-          form = charge.payment_method.charge_form(charge)
+          form = charge.payment_method.charge_form(charge, {:language => session[:locale] || 'es'})
 
           # Notifies to the charge source that the charge is in process
           if charge_source = charge.charge_source and 
-             charge_source.respond_to(:charge_in_process)
+             charge_source.respond_to?(:charge_in_process)
             charge_source.charge_in_process
           end
 

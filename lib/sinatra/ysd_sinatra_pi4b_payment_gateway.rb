@@ -1,3 +1,5 @@
+require 'ysd_md_configuration' unless defined?SystemConfiguration::SecureVariable
+
 module Sinatra
   module YSD
     #
@@ -16,8 +18,9 @@ module Sinatra
         #
         # PI4B payment gateway requests for charge detail 
         #
-        app.get '/charge-detail/pi4b' do
-
+        app.get '/charge-detail/pi4b', 
+          :allowed_remote => lambda {SystemConfiguration::SecureVariable.get_value('payments.pi4b.remote_address')} do
+          
           if pi4b = Payments::PaymentMethod.get(:pi4b)
             if charge_detail = pi4b.charge_detail(
                :merchant_id => params[:store],
@@ -36,8 +39,8 @@ module Sinatra
         #
         # PI4B return page
         #
-        app.get '/charge-return/pi4b' do
-        
+        app.get '/charge-return/pi4b' do 
+          
           charge_id = params[:pszPurchorderNum]  
           result = params[:result]
           
@@ -90,7 +93,8 @@ module Sinatra
         #
         # PI4B payment gateway confirm the charge
         #
-        app.get '/charge-processed/pi4b' do
+        app.get '/charge-processed/pi4b', 
+          :allowed_remote => lambda {SystemConfiguration::SecureVariable.get_value('payments.pi4b.remote_address')} do
 
           merchant_id = params[:store]
           charge_id = params[:pszPurchorderNum]

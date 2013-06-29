@@ -17,6 +17,17 @@ module Sinatra
           Payments::PaymentMethod.available.to_json
         end
         
+        #
+        # Retrieve online/gateway available payment methods (GET)
+        # 
+        app.get "/paymethods/online" do
+          payment_methods = Payments::PaymentMethod.available.select do |item|
+            item.is_a?(Payments::GatewayPaymentMethod)
+          end
+          content_type :json
+          payment_methods.to_json
+        end
+
       end
     
     end #ForumManagement

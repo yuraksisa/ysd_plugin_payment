@@ -3,16 +3,25 @@ system_admin_menu:
     payments_menu:
       title: Gestió de pagaments i cobraments
       charges: Cobraments
+charge_status:
+  pending: Pendent
+  processing: En procès
+  done: Cobrat
+  denied: Denegat      
 charge_management:
   title: Gestió de cobraments
   description: <p>Consultar els cobraments i el seu estat.</p>
   table:
+    id: Numero cobrament
     date: Data
     amount: Import
     status: Estat
     payment_method: Mètode de pagamet
+    source: Font
   form:
+    id: Numero cobrament
     date: Data
     amount: Import
     status: Estat
-    payment_method: Mètode de pagament 
+    payment_method: Mètode de pagament
+    source: Font 

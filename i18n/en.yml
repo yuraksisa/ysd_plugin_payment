@@ -3,16 +3,25 @@ system_admin_menu:
     payments_menu:
       title: Payments and charges
       charges: Charges
+charge_status:
+  pending: Pending
+  processing: Processing
+  done: Charged
+  denied: Denied
 charge_management:
   title: Charge management
   description: <p>Query charges to check their state.</p>
   table:
+    id: Payment Id
     date: Date
     amount: Amount
     status: Status
     payment_method: Payment method
+    source: Source
   form:
+    id: Payment Id
     date: Date
     amount: Amount
     status: Status
-    payment_method: Payment method  
+    payment_method: Payment method
+    source: Source  

@@ -32,4 +32,22 @@ describe Sinatra::YSD::PaymentRESTApi do
 
   end
 
+  context "retrieving available online payment methods" do
+
+    before do
+      SystemConfiguration::Variable.should_receive(:get_value)
+        .with('payments.available_methods').and_return('cecabank,bank_transfer')
+    end
+
+    subject do 
+      get "/paymethods/online"
+      JSON.parse(last_response.body)
+    end
+
+    it { should be_a_kind_of Array}
+    its (:first) { should be_a_kind_of Hash }
+    its (:length) { should == 1 }
+
+  end
+
 end

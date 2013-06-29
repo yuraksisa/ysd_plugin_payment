@@ -3,16 +3,25 @@ system_admin_menu:
     payments_menu:
       title: Gestión de pagos y cobros
       charges: Cobros
+charge_status:
+  pending: Pendiente
+  processing: En proceso
+  done: Cobrado
+  denied: Denegado
 charge_management:
   title: Gestión de cobros
   description: <p>Consultar los cobros y su estado.</p>
   table:
+    id: Número cobro
     date: Fecha
     amount: Importe
     status: Estado
     payment_method: Método de pago
+    source: Fuente
   form:
+    id: Número cobro
     date: Fecha
     amount: Importe
     status: Estado
-    payment_method: Método de pago 
+    payment_method: Método de pago
+    source: Fuente 
