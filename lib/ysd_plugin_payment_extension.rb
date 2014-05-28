@@ -18,6 +18,12 @@ module Huasi
          :description => 'Available payment methods',
          :module => :payments})  
 
+      SystemConfiguration::Variable.first_or_create(
+        {:name => 'payments.default_currency', 
+         :value => 'EUR',
+         :description => 'Default payment currency',
+         :module => :payments})
+
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.pi4b.merchant_id'},
         {:value => '12345677890',
@@ -30,11 +36,25 @@ module Huasi
          :description => 'Pasarela Pasat Internet 4B: Código de comercio',
          :module => :payments})
 
-
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.pi4b.url'},
         {:value => 'https://tpv2.4b.es/simulador/teargral.exe',
          :description => 'Pasarela Pasat Internet 4B: URL conexión con la pasarela'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.remote_address',
+         :value => 'https://www.sandbox.paypal.com',
+         :description => 'Paypal standard. Página de paypal'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.url',
+         :value => 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+         :description => 'Paypal standard URL form'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.business_email',
+         :value => 'myaccount@myserver.com',
+         :description => 'Paypal business email'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url'},

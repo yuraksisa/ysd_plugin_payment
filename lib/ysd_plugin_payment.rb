@@ -1,5 +1,6 @@
 require 'sinatra/ysd_sinatra_payment_gateway'
 require 'sinatra/ysd_sinatra_pi4b_payment_gateway'
+require 'sinatra/ysd_sinatra_paypal_standard_payment_gateway'
 require 'sinatra/ysd_sinatra_payment'
 require 'sinatra/ysd_sinatra_payment_rest_api'
 require 'sinatra/ysd_sinatra_charge_management'

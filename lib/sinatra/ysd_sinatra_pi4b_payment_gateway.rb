@@ -43,6 +43,8 @@ module Sinatra
           
           charge_id = params[:pszPurchorderNum]  
           result = params[:result]
+
+          session[:charge_id] = charge_id
           
           if result == "0" #DONE
           	if charge = Payments::Charge.get(charge_id)
