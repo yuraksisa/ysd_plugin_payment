@@ -47,7 +47,7 @@ module Sinatra
         # Paypal return
         #         
         app.post '/charge-return/paypal-standard',
-          :allowed_remote => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
+          :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
           
             charge_id = params[:invoice]
             session[:charge_id] = charge_id
