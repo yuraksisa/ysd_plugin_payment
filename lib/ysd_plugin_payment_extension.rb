@@ -44,11 +44,11 @@ module Huasi
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.paypal_standard.remote_address',
          :value => 'https://www.sandbox.paypal.com',
-         :description => 'Paypal standard. Página de paypal'})
+         :description => 'Paypal standard. Página de paypal: https://www.sandbox.com.paypal.com or https://www.paypal.com'})
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.paypal_standard.url',
-         :value => 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+         :value => 'https://www.sandbox.paypal.com',
          :description => 'Paypal standard URL form'})
 
       SystemConfiguration::SecureVariable.first_or_create(

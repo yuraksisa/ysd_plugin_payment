@@ -15,8 +15,8 @@ module Sinatra
         #
         # Paypal return cancel 
         #          
-        app.get '/charge-return/paypal-standard/cancel',
-          :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
+        app.get '/charge-return/paypal-standard/cancel' do
+#          :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
             
             charge_id = session[:charge_id]
 
@@ -46,8 +46,8 @@ module Sinatra
         #
         # Paypal return
         #         
-        app.post '/charge-return/paypal-standard',
-          :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
+        app.post '/charge-return/paypal-standard' do
+   #       :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
           
             charge_id = params[:invoice]
             session[:charge_id] = charge_id
@@ -79,10 +79,24 @@ module Sinatra
         # Paypal notification
         # 
         app.post '/charge-processed/paypal-standard' do
-  #        :allowed_remote => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
+  #        :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
 
-           response = validate_IPN_notification(request.raw_post)
-           
+           request.env["rack.input"].rewind
+           raw_post = request.env["rack.input"].read
+
+           base_url = SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.url')
+
+           uri = URI.parse("#{base_url}/cgi-bin/webscr?cmd=_notify-validate")
+           http = Net::HTTP.new(uri.host, uri.port)
+           http.open_timeout = 60
+           http.read_timeout = 60
+           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+           http.use_ssl = true
+           response = http.post(uri.request_uri, raw_post,
+                         'Content-Length' => "#{raw_post.size}",
+                         'User-Agent' => "My custom user agent"
+                       ).body
+          
            case response
                 when "VERIFIED"
                    charge_id = params[:invoice]
@@ -100,19 +114,6 @@ module Sinatra
         end
 
       end
-
-      def validate_IPN_notification(raw)
-         uri = URI.parse('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate')
-         http = Net::HTTP.new(uri.host, uri.port)
-         http.open_timeout = 60
-         http.read_timeout = 60
-         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-         http.use_ssl = true
-         response = http.post(uri.request_uri, raw,
-                         'Content-Length' => "#{raw.size}",
-                         'User-Agent' => "My custom user agent"
-                       ).body
-      end     
 
     end
   end

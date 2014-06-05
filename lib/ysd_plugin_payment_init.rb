@@ -1,9 +1,9 @@
 require 'ysd-plugins' unless defined?Plugins::Plugin
 require 'ysd_plugin_payment_extension'
 
-Plugins::SinatraAppPlugin.register :forum do
+Plugins::SinatraAppPlugin.register :payment do
 
-   name=        'forum'
+   name=        'payment'
    author=      'yurak sisa'
    description= 'Integrate the payment application'
    version=     '0.1'
