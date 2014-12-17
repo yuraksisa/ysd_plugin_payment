@@ -42,11 +42,13 @@ module Huasi
          :description => 'Pasarela Pasat Internet 4B: URL conexión con la pasarela'})
 
       SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.remote_address'},
         {:name => 'payments.paypal_standard.remote_address',
          :value => 'https://www.sandbox.paypal.com',
          :description => 'Paypal standard. Pagina paypal: https://www.sandbox.com.paypal.com or https://www.paypal.com'})
 
       SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.url'},
         {:name => 'payments.paypal_standard.url',
          :value => 'https://www.sandbox.paypal.com',
          :description => 'Paypal standard URL form'})
