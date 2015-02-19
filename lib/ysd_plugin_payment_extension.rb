@@ -54,6 +54,7 @@ module Huasi
          :description => 'Paypal standard URL form'})
 
       SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.paypal_standard.business_email'},
         {:name => 'payments.paypal_standard.business_email',
          :value => 'myaccount@myserver.com',
          :description => 'Paypal business email'})
