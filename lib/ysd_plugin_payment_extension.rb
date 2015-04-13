@@ -60,6 +60,26 @@ module Huasi
          :description => 'Paypal business email'})
 
       SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.redsys.url'},
+        {:value => 'https://sis-t.sermepa.es:25443/sis/realizarPago',
+         :description => 'Pasarela Redsys: URL conexión con la pasarela'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.redsys.merchant_code'},
+        {:value => '123456789',
+         :description => 'Pasarela Redsys: Ds_Merchant_MerchantCode'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.redsys.terminal_id'},
+        {:value => '12345678',
+         :description => 'Pasarela Redsys : Ds_Merchant_Terminal'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.redsys.clave_encriptacion'},
+        {:value => '12345678',
+         :description => 'Pasarela Redsys : Ds_Merchant_Terminal'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url'},
         {:value => 'http://tpv.ceca.es:8000/cgi-bin/tpv',
          :description => 'Pasarela Cecabank: URL conexión con la pasarela'})
