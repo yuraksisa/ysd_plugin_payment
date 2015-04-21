@@ -8,6 +8,7 @@ charge_status:
   processing: En procès
   done: Cobrat
   denied: Denegat      
+  refunded: Devolució
 charge_management:
   title: Gestió de cobraments
   description: <p>Consultar els cobraments i el seu estat.</p>

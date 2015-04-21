@@ -8,6 +8,7 @@ charge_status:
   processing: Processing
   done: Charged
   denied: Denied
+  refunded: Refunded
 charge_management:
   title: Charge management
   description: <p>Query charges to check their state.</p>

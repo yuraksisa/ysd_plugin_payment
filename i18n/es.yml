@@ -8,6 +8,7 @@ charge_status:
   processing: En proceso
   done: Cobrado
   denied: Denegado
+  refunded: Devuelto
 charge_management:
   title: Gestión de cobros
   description: <p>Consultar los cobros y su estado.</p>
