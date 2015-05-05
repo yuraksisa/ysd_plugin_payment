@@ -16,7 +16,6 @@ module Sinatra
         # Paypal return cancel 
         #          
         app.get '/charge-return/paypal-standard/cancel' do
-#          :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
             
             charge_id = session[:charge_id]
 
@@ -47,7 +46,6 @@ module Sinatra
         # Paypal return
         #         
         app.post '/charge-return/paypal-standard' do
-   #       :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
           
             charge_id = params[:invoice]
             session[:charge_id] = charge_id
@@ -79,7 +77,6 @@ module Sinatra
         # Paypal notification
         # 
         app.post '/charge-processed/paypal-standard' do
-  #        :allowed_origin => lambda {SystemConfiguration::SecureVariable.get_value('payments.paypal_standard.remote_address')} do
 
            request.env["rack.input"].rewind
            raw_post = request.env["rack.input"].read

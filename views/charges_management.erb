@@ -123,7 +123,8 @@
        'pending': '<%= t.charge_status.pending %>',
        'processing': '<%= t.charge_status.processing %>',
        'done': '<%= t.charge_status.done %>',
-       'denied': '<%= t.charge_status.denied %>'
+       'denied': '<%= t.charge_status.denied %>',
+       'refunded': '<%= t.charge_status.refunded%>'       
     };
 
     this.entityKey = function(entity) {
@@ -143,6 +144,7 @@
           className = 'done-status';
           break;
         case 'denied':
+        case 'refunded':
           className = 'error-status';
           break;
       }
