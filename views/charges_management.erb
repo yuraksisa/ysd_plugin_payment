@@ -130,6 +130,10 @@
     this.entityKey = function(entity) {
       return entity.id;
     }    
+
+    this.onRenderEntities = function(entities) {
+      $('.new-entity-button').hide();
+    }    
   	
     this.statusClass = function(entity) {
       var className = null;
