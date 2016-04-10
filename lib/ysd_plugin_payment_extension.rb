@@ -181,5 +181,12 @@ module Huasi
       %w(/charge /charge-return /charge-detail /charge-processed)
     end
 
+    #
+    # Ignore the following path prefix in breadcrumb
+    #
+    def ignore_path_prefix_breadcrumb(context={})
+      %w(/charge /charge-return /charge-detail /charge-processed)
+    end    
+
   end #MailExtension
 end #Social
