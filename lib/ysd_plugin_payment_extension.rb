@@ -24,6 +24,8 @@ module Huasi
          :description => 'Default payment currency',
          :module => :payments})
 
+      # Pasat Internet 4B
+
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.pi4b.merchant_id'},
         {:value => '12345677890',
@@ -40,6 +42,8 @@ module Huasi
         {:name => 'payments.pi4b.url'},
         {:value => 'https://tpv2.4b.es/simulador/teargral.exe',
          :description => 'Pasarela Pasat Internet 4B: URL conexión con la pasarela'})
+
+      # Paypal
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.paypal_standard.remote_address'},
@@ -58,6 +62,8 @@ module Huasi
         {:name => 'payments.paypal_standard.business_email',
          :value => 'myaccount@myserver.com',
          :description => 'Paypal business email'})
+
+      # RedSys
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.redsys.url'},
@@ -78,6 +84,30 @@ module Huasi
         {:name => 'payments.redsys.clave_encriptacion'},
         {:value => '12345678',
          :description => 'Pasarela Redsys : Ds_Merchant_Terminal'})
+
+      # Santander
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.santander.environment'},
+        {:value => 'test',
+         :description => 'Pasarela Santander : Entorno (test o production)'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.santander.id_cliente'},
+        {:value => '0123456789',
+         :description => 'Pasarela Santander: Id cliente'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.santander.nombre_cuenta'},
+        {:value => '0123456789',
+         :description => 'Pasarela Santander: Nombre cuenta'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
+        {:name => 'payments.santander.secreto_compartido'},
+        {:value => '0123456789',
+         :description => 'Pasarela Santander: Secreto compartido'})
+      
+      # Cecabank
 
       SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url'},
