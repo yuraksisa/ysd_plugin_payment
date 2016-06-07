@@ -15,7 +15,7 @@ module Sinatra
         #
         # Santander Elavon TPV platform responds to this URL
         #
-        app.post '/charge-return/santader' do 
+        app.post '/charge-return/santander' do 
 
           site_domain = SystemConfiguration::Variable.get_value("site.domain")
           url = "#{site_domain}/charge-return/santander-return"
