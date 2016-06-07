@@ -70,7 +70,7 @@ module Sinatra
           EOF
 
           status 200
-          reponse
+          response
 
         end
 
