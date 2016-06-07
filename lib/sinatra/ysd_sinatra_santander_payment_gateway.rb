@@ -35,6 +35,7 @@ module Sinatra
           # Process the notification
          
           if charge = Payments::Charge.get(charge_id.to_i)
+            session[:charge_id] = charge.id
             if result == "00" # Operation successful
               payment_method = Payments::PaymentMethod.get(:santander)
               calculated_signature = payment_method.return_signature(timestamp,
@@ -91,6 +92,7 @@ module Sinatra
           sha1hash = params[:SHA1HASH]
 
           if charge = Payments::Charge.get(charge_id.to_i)
+            session[:charge_id] = charge.id
             if charge_source = charge.charge_source
               payment_method = Payments::PaymentMethod.get(:santander)
               calculated_signature = payment_method.return_signature(timestamp,
