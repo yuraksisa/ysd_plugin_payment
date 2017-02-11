@@ -13,20 +13,18 @@ module Sinatra
           app.post path do
         	
             query_options = {}
-            if request.media_type == "application/x-www-form-urlencoded"
-              if params[:search]
-                query_options[:conditions] = {:amount => "%#{params[:search]}%"} 
-              else
-                request.body.rewind
-                search_text=request.body.read
-                query_options[:conditions] = {:amount => "%#{search_text}%"} 
+            if request.media_type == "application/json"
+              request.body.rewind
+              search_request = JSON.parse(URI.unescape(request.body.read))
+              if search_request.has_key?('search') and !search_request['search'].empty?
+                query_options[:conditions] = {:amount => "%#{search_request['search']}%"}
               end
             end
-            page_size = SystemConfiguration::Variable.
-              get_value('configuration.charge_page_size', 20).to_i 
+            page_size = 20
             page = [params[:page].to_i, 1].max  
             data, total = Payments::Charge.all_and_count(
               query_options.merge({:offset => (page - 1)  * page_size, :limit => page_size, :order => [:date.desc]}) )
+
             content_type :json
             {:data => data, :summary => {:total => total}}.to_json
 

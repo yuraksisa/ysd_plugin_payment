@@ -48,6 +48,7 @@ module Sinatra
               end
             else
               charge.update(:status => :denied)
+              logger.error("operation denied or cancelled by Santander Evalon")
             end
           else
             logger.error("charge #{charge_id} not found")
