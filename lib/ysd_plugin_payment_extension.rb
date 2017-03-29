@@ -24,6 +24,12 @@ module Huasi
          :description => 'Default payment currency',
          :module => :payments})
 
+      SystemConfiguration::Variable.first_or_create(
+        {:name => 'payments.return_site_url',
+         :value => '',
+         :description => 'Payment gateway return URL (if it is different from site.domain)',
+         :module => :payments})
+
       # Pasat Internet 4B
 
       SystemConfiguration::SecureVariable.first_or_create(

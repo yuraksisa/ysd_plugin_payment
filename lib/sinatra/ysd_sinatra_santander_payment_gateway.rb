@@ -103,8 +103,14 @@ module Sinatra
                 method_name = "#{charge_source.class.name.split('::').last.downcase}_gateway_return_ok".to_sym
                 if settings.respond_to?(method_name)
                   redirect_url = settings.send(method_name) 
-                  status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
-                     "REQUEST_METHOD" => 'GET') 
+                  # In case of detached front-end there are two domains (front-end and backoffice) 
+                  return_site_url = SystemConfiguration::Variable.get_value("payments.return_site_url", nil)
+                  if !return_site_url.nil? && !return_site_url.empty?
+                    redirect return_site_url
+                  else
+                    status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
+                       "REQUEST_METHOD" => 'GET')
+                  end      
                 else
                   logger.error "#{method_name} not found on settings"
                   status 404
