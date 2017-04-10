@@ -20,13 +20,13 @@ module Huasi
 
       SystemConfiguration::Variable.first_or_create(
         {:name => 'payments.default_currency', 
-         :value => 'EUR',
+        {:value => 'EUR',
          :description => 'Default payment currency',
          :module => :payments})
 
       SystemConfiguration::Variable.first_or_create(
-        {:name => 'payments.return_site_url',
-         :value => '',
+        {:name => 'payments.return_site_url'},
+        {:value => '',
          :description => 'Payment gateway return URL (if it is different from site.domain)',
          :module => :payments})
 
