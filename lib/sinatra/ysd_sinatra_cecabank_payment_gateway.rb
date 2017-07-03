@@ -113,18 +113,18 @@ module Sinatra
           if charge = Payments::Charge.get(num_operacion.to_i)
             # Check the firma
             calculated_signature = payment_method.notification_signature(merchant_id, 
-            	                                                         acquirer_bin,
-            	                                                         terminal_id,
-            	                                                         num_operacion,
-            	                                                         importe,
-            	                                                         tipo_moneda,
-            	                                                         exponente,
-            	                                                         referencia)
+            	                                                           acquirer_bin,
+            	                                                           terminal_id,
+            	                                                           num_operacion,
+            	                                                           importe,
+            	                                                           tipo_moneda,
+            	                                                           exponente,
+                                                                         referencia)
             if firma == calculated_signature
               charge.update(:status => :done)
               status 200
             else
-              logger.error "CECABANK : Calculated signature does not match #{signature} ** #{calculated_signature}"
+              logger.error "CECABANK : Calculated signature does not match #{firma} ** #{calculated_signature}"
               status 404                 
             end
           else
