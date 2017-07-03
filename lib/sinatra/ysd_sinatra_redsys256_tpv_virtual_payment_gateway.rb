@@ -71,6 +71,7 @@ module Sinatra
                   status 404                 
                 end
               else
+                p "Payment error #{result}"
                 charge.update(:status => :denied)
                 status 200
             end

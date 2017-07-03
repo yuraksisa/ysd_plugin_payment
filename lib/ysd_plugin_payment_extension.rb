@@ -19,7 +19,7 @@ module Huasi
          :module => :payments})  
 
       SystemConfiguration::Variable.first_or_create(
-        {:name => 'payments.default_currency', 
+        {:name => 'payments.default_currency'}, 
         {:value => 'EUR',
          :description => 'Default payment currency',
          :module => :payments})

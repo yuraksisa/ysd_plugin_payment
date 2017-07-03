@@ -13,6 +13,7 @@ Plugins::SinatraAppPlugin.register :payment do
    sinatra_extension Sinatra::YSD::PI4BPaymentGateway
    sinatra_extension Sinatra::YSD::RedsysTpvVirtualPaymentGateway
    sinatra_extension Sinatra::YSD::Redsys256TpvVirtualPaymentGateway
+   sinatra_extension Sinatra::YSD::CecabankTpvVirtualPaymentGateway
    sinatra_extension Sinatra::YSD::PaypalStandardPaymentGateway
    sinatra_extension Sinatra::YSD::SantanderPaymentGateway
    sinatra_extension Sinatra::YSD::ChargeManagement
