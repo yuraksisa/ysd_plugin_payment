@@ -105,7 +105,7 @@ module Sinatra
           tipo_tarjeta = params[:Tipo_tarjeta]
           descripcion = params[:Descripcion]
 
-          logger.info "CECABANK Notification. Charge = #{num_operacion}"
+          logger.info "CECABANK Notification. Charge = #{num_operacion} -- #{merchant_id} #{acquirer_bin} #{terminal_id} #{num_operacion} #{importe} #{tipo_moneda} #{exponente} #{referencia} ** #{firma}"
 
           payment_method = Payments::PaymentMethod.get(:cecabank)
 
