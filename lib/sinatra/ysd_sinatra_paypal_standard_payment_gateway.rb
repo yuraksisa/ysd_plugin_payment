@@ -43,6 +43,38 @@ module Sinatra
         end
 
         #
+        # Return
+        #         
+        app.get '/charge-return/paypal-standard' do
+            
+            p "charge-return charge_id : #{session[:charge_id]}"
+
+            charge_id = session[:charge_id]
+
+            if charge = Payments::Charge.get(charge_id)
+
+              if charge_source = charge.charge_source
+                method_name = "#{charge_source.class.name.split('::').last.downcase}_gateway_return_ok".to_sym
+                if settings.respond_to?(method_name)
+                  redirect_url = settings.send(method_name) 
+                  status, header, body = call! env.merge("PATH_INFO" => redirect_url, 
+                     "REQUEST_METHOD" => 'GET') 
+                else
+                  status 200
+                  body "No #{method_name}" #TODO CHANGE
+                end
+              else
+                status 200
+                body "Charge without source" #TODO CHANGE
+              end
+            
+            else
+              status 404
+            end
+
+        end
+
+        #
         # Paypal return
         #         
         app.post '/charge-return/paypal-standard' do
