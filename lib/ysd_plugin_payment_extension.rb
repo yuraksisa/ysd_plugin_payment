@@ -72,6 +72,11 @@ module Huasi
       # RedSys
 
       SystemConfiguration::SecureVariable.first_or_create(
+          {:name => 'payments.redsys.environment'},
+          {:value => 'production',
+           :description => 'Pasarela Redsys: Entorno (production - test)'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.redsys.url'},
         {:value => 'https://sis-t.sermepa.es:25443/sis/realizarPago',
          :description => 'Pasarela Redsys: URL conexión con la pasarela'})
