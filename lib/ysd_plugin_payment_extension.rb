@@ -121,6 +121,11 @@ module Huasi
       # Cecabank
 
       SystemConfiguration::SecureVariable.first_or_create(
+          {:name => 'payments.cecabank.environment'},
+          {:value => 'production',
+           :description => 'Pasarela Cecabank: Entorno (production - test)'})
+
+      SystemConfiguration::SecureVariable.first_or_create(
         {:name => 'payments.cecabank.url'},
         {:value => 'http://tpv.ceca.es:8000/cgi-bin/tpv',
          :description => 'Pasarela Cecabank: URL conexión con la pasarela'})
