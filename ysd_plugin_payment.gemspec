@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name    = "ysd_plugin_payment"
-  s.version = "0.1.81"
+  s.version = "0.1.82"
   s.authors = ["Yurak Sisa Dream"]
   s.date    = "2012-05-16"
   s.email   = ["yurak.sisa.dream@gmail.com"]
@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ysd_plugin_auth"
 
   s.add_runtime_dependency "ysd_yito_core"    # Page loading
-  s.add_runtime_dependency "ysd_yito_js"      # Yito JS library
 
   s.add_runtime_dependency "ysd_core_plugins" # Plugins system
 
